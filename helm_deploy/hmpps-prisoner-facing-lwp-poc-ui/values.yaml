@@ -49,7 +49,7 @@ generic-service:
       AUTH_CODE_CLIENT_SECRET: 'AUTH_CODE_CLIENT_SECRET'    
     hmpps-prisoner-facing-lwp-poc-ui-session-secret:
       SESSION_SECRET: 'SESSION_SECRET'
-    hmpps-prisoner-facing-lwp-poc-ui-elasticache-redis:
+    redis:
       REDIS_HOST: 'primary_endpoint_address'
       REDIS_AUTH_TOKEN: 'auth_token'
     hmpps-prisoner-facing-lwp-poc-ui-application-insights:
