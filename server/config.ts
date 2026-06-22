@@ -81,6 +81,15 @@ export default {
       },
       agent: new AgentConfig(Number(get('EXAMPLE_API_TIMEOUT_RESPONSE', 5000))),
     },
+    educationAndWorkPlanApi: {
+      url: get('EDUCATION_AND_WORK_PLAN_API_URL', 'http://localhost:8083', requiredInProduction),
+      healthPath: '/health/ping',
+      timeout: {
+        response: Number(get('EDUCATION_AND_WORK_PLAN_API_TIMEOUT_RESPONSE', 5000)),
+        deadline: Number(get('EDUCATION_AND_WORK_PLAN_API_TIMEOUT_DEADLINE', 5000)),
+      },
+      agent: new AgentConfig(Number(get('EDUCATION_AND_WORK_PLAN_API_TIMEOUT_RESPONSE', 5000))),
+    },
   },
   sqs: {
     audit: auditConfig(),
