@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test'
+import educationAndWorkPlanApi from '../mockApis/educationAndWorkPlanApi'
 import exampleApi from '../mockApis/exampleApi'
 import hmppsAuth from '../mockApis/hmppsAuth'
 import tokenVerification from '../mockApis/tokenVerification'
@@ -12,7 +13,12 @@ test.describe('Health', () => {
 
   test.describe('All healthy', () => {
     test.beforeEach(async () => {
-      await Promise.all([hmppsAuth.stubPing(), exampleApi.stubPing(), tokenVerification.stubPing()])
+      await Promise.all([
+        hmppsAuth.stubPing(),
+        exampleApi.stubPing(),
+        educationAndWorkPlanApi.stubPing(),
+        tokenVerification.stubPing(),
+      ])
     })
 
     test('Health check is accessible and status is UP', async ({ page }) => {
@@ -36,7 +42,12 @@ test.describe('Health', () => {
 
   test.describe('Some unhealthy', () => {
     test.beforeEach(async () => {
-      await Promise.all([hmppsAuth.stubPing(), exampleApi.stubPing(), tokenVerification.stubPing(500)])
+      await Promise.all([
+        hmppsAuth.stubPing(),
+        exampleApi.stubPing(),
+        educationAndWorkPlanApi.stubPing(),
+        tokenVerification.stubPing(500),
+      ])
     })
 
     test('Health check status is down', async ({ page }) => {
