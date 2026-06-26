@@ -14,7 +14,7 @@ User authentication will use hmpps-prisoner-auth, rather than hmpps-auth (which 
 Making API calls to DPS API services (specifically LWP API) will use hmpps-auth client credentials flow to get a system
 token, consistent with all other DPS UI services.
 
-## Developing against the template project
+## Developing and maintenance
 
 ### Running the app via docker-compose
 
@@ -32,7 +32,7 @@ To start the main services excluding the example typescript template app:
 
 `docker compose up --scale=app=0`
 
-Create an environment file by copying `.env.example` -> `.env`
+Create an environment file by copying `.env.local` -> `.env`
 Environment variables set in here will be available when running `start:dev`
 
 Install dependencies using `npm run setup`, ensuring you are using `node v24`
@@ -47,14 +47,8 @@ And then, to build the assets and start the app with esbuild:
 
 ### Logging in with a test user
 
-Once the application is running you should then be able to login with:
-
-username: AUTH_USER
-password: password123456
-
-To request specific users and roles then raise a PR
-to [update the seed data](https://github.com/ministryofjustice/hmpps-auth/blob/main/src/main/resources/db/dev/data/auth/V900_3__users.sql)
-for the in-memory DB used by Auth
+Once the application is running you will need a suitable user account in MoJ Entry to login with
+A test user (dev environment) can be obtained from the Launchpad team.
 
 ### Installing dependencies
 

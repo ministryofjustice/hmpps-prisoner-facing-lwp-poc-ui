@@ -62,6 +62,20 @@ export default {
       systemClientId: get('CLIENT_CREDS_CLIENT_ID', 'clientid', requiredInProduction),
       systemClientSecret: get('CLIENT_CREDS_CLIENT_SECRET', 'clientsecret', requiredInProduction),
     },
+    prisonerAuth: {
+      url: get('LAUNCHPAD_AUTH_URL', 'http://localhost:8080', requiredInProduction),
+      healthPath: '/health/ping',
+      externalUrl: get('LAUNCHPAD_AUTH_EXTERNAL_URL', get('LAUNCHPAD_AUTH_URL', 'http://localhost:8080')),
+      timeout: {
+        response: Number(get('LAUNCHPAD_AUTH_TIMEOUT_RESPONSE', 10000)),
+        deadline: Number(get('LAUNCHPAD_AUTH_TIMEOUT_DEADLINE', 10000)),
+      },
+      refreshCheckTimeInMinutes: Number(get('REFRESH_CHECK_TIMEOUT_IN_MINUTES', 5)),
+      agent: new AgentConfig(Number(get('LAUNCHPAD_AUTH_TIMEOUT_RESPONSE', 10000))),
+      authClientId: get('LAUNCHPAD_AUTH_CODE_CLIENT_ID', 'clientid', requiredInProduction),
+      authClientSecret: get('LAUNCHPAD_AUTH_CODE_CLIENT_SECRET', 'clientsecret', requiredInProduction),
+      scopes: ['user.basic.read', 'user.establishment.read'],
+    },
     tokenVerification: {
       url: get('TOKEN_VERIFICATION_API_URL', 'http://localhost:8100', requiredInProduction),
       healthPath: '/health/ping',
