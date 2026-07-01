@@ -1,4 +1,6 @@
-export type AuthSource = 'nomis' | 'delius' | 'external' | 'azuread'
+import { LaunchpadUser } from '@ministryofjustice/hmpps-prisoner-auth'
+
+export type AuthSource = 'nomis' | 'delius' | 'external' | 'azuread' | 'prisoner-auth'
 
 /**
  * These are the details that all user types share.
@@ -57,4 +59,4 @@ export interface AzureADUser extends BaseUser {
   authSource: 'azuread'
 }
 
-export type HmppsUser = PrisonUser | ProbationUser | ExternalUser | AzureADUser
+export type HmppsUser = PrisonUser | ProbationUser | ExternalUser | AzureADUser | LaunchpadUser
