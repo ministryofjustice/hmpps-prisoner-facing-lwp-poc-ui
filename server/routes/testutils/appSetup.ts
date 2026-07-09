@@ -15,13 +15,26 @@ jest.mock('../../services/auditService')
 
 export const user: HmppsUser = {
   name: 'FIRST LAST',
-  userId: 'id',
+  userId: 'A1234BC',
   token: 'token',
   username: 'user1',
   displayName: 'First Last',
-  authSource: 'nomis',
-  staffId: 1234,
+  authSource: 'prisoner-auth',
   userRoles: [],
+  accessToken: 'access-token',
+  refreshToken: 'refresh-token',
+  idToken: {
+    name: 'FIRST LAST',
+    given_name: 'FIRST',
+    family_name: 'LAST',
+    iat: 0,
+    aud: 'clientid',
+    sub: 'A1234BC',
+    exp: 0,
+    booking: { id: '1' },
+    establishment: { agency_id: 'BXI', name: 'brixton', display_name: 'HMP Brixton', youth: false },
+    iss: 'http://localhost:8080',
+  },
 }
 
 export const flashProvider = jest.fn()

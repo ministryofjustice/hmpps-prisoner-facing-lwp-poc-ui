@@ -1,6 +1,7 @@
 import { Page } from '@playwright/test'
 import tokenVerification from './mockApis/tokenVerification'
 import prisonerAuth from './mockApis/prisonerAuth'
+import hmppsAuth from './mockApis/hmppsAuth'
 import { resetStubs } from './mockApis/wiremock'
 
 export { resetStubs }
@@ -31,6 +32,8 @@ export const loginWithPrisonerAuth = async (
     prisonerAuth.stubSignInPage(),
     prisonerAuth.token({ subject, establishmentCode, expiresInSeconds: tokenExpiresInSeconds }),
     tokenVerification.stubVerifyToken(active),
+    // The home page calls the LWP API with a client-credentials (system) token, so stub the HMPPS Auth token endpoint.
+    hmppsAuth.token({}),
   ])
   await attemptPrisonerAuthLogin(page)
 }

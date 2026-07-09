@@ -35,6 +35,16 @@ describe('EducationAndWorkPlanService', () => {
     expect(result).toEqual(actionPlanResponse)
   })
 
+  it('should return null when the api client returns null (prisoner has no action plan)', async () => {
+    const prisonNumber = 'A1234BC'
+    educationAndWorkPlanApiClient.getActionPlan.mockResolvedValue(null)
+
+    const result = await educationAndWorkPlanService.getActionPlan(prisonNumber)
+
+    expect(educationAndWorkPlanApiClient.getActionPlan).toHaveBeenCalledWith(prisonNumber)
+    expect(result).toBeNull()
+  })
+
   it('should propagate errors from the api client', async () => {
     const prisonNumber = 'A1234BC'
     educationAndWorkPlanApiClient.getActionPlan.mockRejectedValue(new Error('API error'))
