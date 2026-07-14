@@ -64,6 +64,7 @@ generic-service:
   allowlist:
     groups:
       - internal
+      - prisons-education
 
 generic-prometheus-alerts:
   targetApplication: hmpps-prisoner-facing-lwp-poc-ui
