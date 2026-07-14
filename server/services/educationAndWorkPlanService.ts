@@ -4,7 +4,7 @@ import type EducationAndWorkPlanApiClient from '../data/educationAndWorkPlanApiC
 export default class EducationAndWorkPlanService {
   constructor(private readonly educationAndWorkPlanApiClient: EducationAndWorkPlanApiClient) {}
 
-  getActionPlan(prisonNumber: string): Promise<ActionPlanResponse> {
+  getActionPlan(prisonNumber: string): Promise<ActionPlanResponse | null> {
     return this.educationAndWorkPlanApiClient.getActionPlan(prisonNumber)
   }
 }

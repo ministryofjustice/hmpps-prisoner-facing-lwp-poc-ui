@@ -62,8 +62,16 @@ describe('EducationAndWorkPlanApiClient', () => {
       expect(response.prisonNumber).toEqual(otherPrisonNumber)
     })
 
-    it('should propagate an error when the API returns a non-2xx response', async () => {
+    it('should return null when the prisoner has no action plan (API returns 404)', async () => {
       nock(config.apis.educationAndWorkPlanApi.url).get(`/action-plans/${prisonNumber}`).reply(404)
+
+      const response = await educationAndWorkPlanApiClient.getActionPlan(prisonNumber)
+
+      expect(response).toBeNull()
+    })
+
+    it('should propagate an error when the API returns a non-404 error response', async () => {
+      nock(config.apis.educationAndWorkPlanApi.url).get(`/action-plans/${prisonNumber}`).times(3).reply(500)
 
       await expect(educationAndWorkPlanApiClient.getActionPlan(prisonNumber)).rejects.toThrow()
     })

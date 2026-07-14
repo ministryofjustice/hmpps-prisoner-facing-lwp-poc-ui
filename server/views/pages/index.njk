@@ -1,11 +1,20 @@
 {% extends "../partials/layout.njk" %}
 
-{% set pageTitle = applicationName + " - Home" %}
+{% set pageTitle = applicationName + " - Your goals" %}
 {% set mainClasses = "govuk-body" %}
 
 {% block content %}
 
-  <h1>This site is under construction...</h1>
-  <p>Please check back later when there is content to view.</p>
+  <h1 class="govuk-heading-l">Your learning and work goals</h1>
+
+  {% if goals.length %}
+    <ul class="govuk-list govuk-list--bullet" data-qa="goals-list">
+      {% for goal in goals %}
+        <li>{{ goal.title }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="govuk-body" data-qa="no-goals-message">No LWP goals recorded</p>
+  {% endif %}
 
 {% endblock %}

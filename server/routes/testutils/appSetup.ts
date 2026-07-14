@@ -2,31 +2,44 @@ import express, { Express } from 'express'
 import { NotFound } from 'http-errors'
 
 import { randomUUID } from 'crypto'
+import { LaunchpadUser } from '@ministryofjustice/hmpps-prisoner-auth'
 import routes from '../index'
 import nunjucksSetup from '../../utils/nunjucksSetup'
 import errorHandler from '../../errorHandler'
 import type { Services } from '../../services'
 import AuditService from '../../services/auditService'
-import { HmppsUser } from '../../interfaces/hmppsUser'
 import setUpWebSession from '../../middleware/setUpWebSession'
 import HmppsAuditClient from '../../data/hmppsAuditClient'
 
 jest.mock('../../services/auditService')
 
-export const user: HmppsUser = {
+export const user: LaunchpadUser = {
   name: 'FIRST LAST',
-  userId: 'id',
+  userId: 'A1234BC',
   token: 'token',
   username: 'user1',
   displayName: 'First Last',
-  authSource: 'nomis',
-  staffId: 1234,
+  authSource: 'prisoner-auth',
   userRoles: [],
+  accessToken: 'access-token',
+  refreshToken: 'refresh-token',
+  idToken: {
+    name: 'FIRST LAST',
+    given_name: 'FIRST',
+    family_name: 'LAST',
+    iat: 0,
+    aud: 'clientid',
+    sub: 'A1234BC',
+    exp: 0,
+    booking: { id: '1' },
+    establishment: { agency_id: 'BXI', name: 'brixton', display_name: 'HMP Brixton', youth: false },
+    iss: 'http://localhost:8080',
+  },
 }
 
 export const flashProvider = jest.fn()
 
-function appSetup(services: Services, production: boolean, userSupplier: () => HmppsUser): Express {
+function appSetup(services: Services, production: boolean, userSupplier: () => LaunchpadUser): Express {
   const app = express()
 
   app.set('view engine', 'njk')
@@ -37,7 +50,7 @@ function appSetup(services: Services, production: boolean, userSupplier: () => H
     req.user = userSupplier() as Express.User
     req.flash = flashProvider
     res.locals = {
-      user: { ...req.user } as HmppsUser,
+      user: { ...req.user } as LaunchpadUser,
       cspNonce: '',
       csrfToken: '',
       asset_path: '',
@@ -69,7 +82,7 @@ export function appWithAllRoutes({
 }: {
   production?: boolean
   services?: Partial<Services>
-  userSupplier?: () => HmppsUser
+  userSupplier?: () => LaunchpadUser
 }): Express {
   return appSetup(services as Services, production, userSupplier)
 }
