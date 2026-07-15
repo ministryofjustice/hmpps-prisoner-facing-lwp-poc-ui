@@ -5,7 +5,11 @@ generic-service:
   replicaCount: 2
 
   ingress:
-    host: prisoner-facing-lwp-poc-dev.hmpps.service.justice.gov.uk
+    hosts:
+      - prisoner-facing-lwp-poc-dev.hmpps.service.justice.gov.uk
+      - shared.prisoner-facing-lwp-poc-dev.hmpps.service.justice.gov.uk
+      - kiosk.prisoner-facing-lwp-poc-dev.hmpps.service.justice.gov.uk
+      - private.prisoner-facing-lwp-poc-dev.hmpps.service.justice.gov.uk
 
   env:
     INGRESS_URL: "https://prisoner-facing-lwp-poc-dev.hmpps.service.justice.gov.uk"
