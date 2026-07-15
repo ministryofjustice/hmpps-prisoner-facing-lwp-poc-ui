@@ -7,6 +7,8 @@
 
   <h1 class="govuk-heading-l">Your learning and work goals</h1>
 
+  <h2 class="govuk-heading-m">Service is being accessed via device type: {{ deviceType | default('unknown') }}</h2>
+
   {% if goals.length %}
     <ul class="govuk-list govuk-list--bullet" data-qa="goals-list">
       {% for goal in goals %}
