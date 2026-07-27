@@ -1,3 +1,4 @@
+import { LaunchpadUser } from '@ministryofjustice/hmpps-prisoner-auth'
 import { jwtDecode } from 'jwt-decode'
 import express from 'express'
 import { convertToTitleCase } from '../utils/utils'
@@ -6,29 +7,27 @@ import logger from '../../logger'
 export default function setUpCurrentUser() {
   const router = express.Router()
 
-  router.use((_req, res, next) => {
+  router.use(async (_req, res, next) => {
     try {
       const {
         name,
-        user_id: userId,
-        authorities: roles = [],
+        sub: userId,
+        establishment,
       } = jwtDecode(res.locals.user.token) as {
         name?: string
-        user_id?: string
-        authorities?: string[]
+        sub?: string
+        establishment?: {
+          agency_id?: string
+        }
       }
 
       res.locals.user = {
         ...res.locals.user,
         userId,
+        establishmentId: establishment.agency_id,
         name,
         displayName: convertToTitleCase(name),
-        userRoles: roles.map(role => role.substring(role.indexOf('_') + 1)),
-      }
-
-      if (res.locals.user.authSource === 'nomis') {
-        res.locals.user.staffId = userId !== undefined ? parseInt(userId, 10) : undefined
-      }
+      } as unknown as LaunchpadUser
 
       next()
     } catch (error) {

@@ -54,7 +54,7 @@ describe('GET /', () => {
         expect(res.text).not.toContain('No LWP goals recorded')
         expect(educationAndWorkPlanService.getActionPlan).toHaveBeenCalledWith('A1234BC')
         expect(auditService.logPageView).toHaveBeenCalledWith(Page.PRISONER_GOALS, {
-          who: user.username,
+          who: user.userId,
           correlationId: expect.any(String),
         })
       })
