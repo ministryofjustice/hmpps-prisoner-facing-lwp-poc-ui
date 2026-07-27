@@ -8,10 +8,9 @@ export default function routes({ auditService, educationAndWorkPlanService }: Se
 
   router.get('/', async (req, res, next) => {
     try {
-      const { user } = res.locals
-      await auditService.logPageView(Page.PRISONER_GOALS, { who: user.username, correlationId: req.id })
+      const prisonNumber = res.locals.user.userId
+      await auditService.logPageView(Page.PRISONER_GOALS, { who: prisonNumber, correlationId: req.id })
 
-      const prisonNumber = user.authSource === 'prisoner-auth' ? user.idToken.sub : undefined
       const actionPlan = await educationAndWorkPlanService.getActionPlan(prisonNumber)
       const goals = actionPlan?.goals ?? []
 

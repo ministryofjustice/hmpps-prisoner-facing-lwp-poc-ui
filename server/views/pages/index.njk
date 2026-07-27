@@ -7,8 +7,6 @@
 
   <h1 class="govuk-heading-l">Your learning and work goals</h1>
 
-  <h2 class="govuk-heading-m">Service is being accessed via device type: {{ deviceType | default('unknown') }}</h2>
-
   {% if goals.length %}
     <ul class="govuk-list govuk-list--bullet" data-qa="goals-list">
       {% for goal in goals %}
@@ -18,5 +16,22 @@
   {% else %}
     <p class="govuk-body" data-qa="no-goals-message">No LWP goals recorded</p>
   {% endif %}
+
+  <hr>
+  <h2 class="govuk-heading-m">Debug data</h2>
+  <dl class="govuk-summary-list">
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">User principal</dt>
+      <dd class="govuk-summary-list__value">{{ user.userId }}</dd>
+    </div>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">Prisoner establishment ID</dt>
+      <dd class="govuk-summary-list__value">{{ user.establishmentId }}</dd>
+    </div>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">Service is being accessed via device type</dt>
+      <dd class="govuk-summary-list__value">{{ deviceType | default('unknown') }}</dd>
+    </div>
+  </dl>
 
 {% endblock %}
