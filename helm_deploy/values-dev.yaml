@@ -13,7 +13,7 @@ generic-service:
 
   scheduledDowntime:
     enabled: true
-    startup: '30 6 * * 1-5' # Start at 6.30am UTC Monday-Friday
+    startupOverride: '30 6 * * 1-5' # Start at 6.30am UTC Monday-Friday
     shutdown: '00 21 * * 1-5' # Stop at 9.00pm UTC Monday-Friday
 
   env:
@@ -27,3 +27,4 @@ generic-service:
 
 generic-prometheus-alerts:
   alertSeverity: hmpps-support-additional-needs-dev
+  businessHoursOnly: true
